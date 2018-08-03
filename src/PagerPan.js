@@ -7,7 +7,8 @@ import {
   I18nManager,
   PanResponder,
   StyleSheet,
-  View,
+  View, 
+  I18nManager,
   Platform,
 } from 'react-native';
 import { PagerRendererPropType } from './PropTypes';
