@@ -6,7 +6,8 @@ import {
   Animated,
   PanResponder,
   StyleSheet,
-  View,
+  View, 
+  I18nManager,
   Platform,
 } from 'react-native';
 import { PagerRendererPropType } from './TabViewPropTypes';
@@ -228,11 +229,14 @@ export default class TabViewPagerPan<T: *> extends React.Component<Props<T>> {
     const { width } = layout;
     const { routes } = navigationState;
     const maxTranslate = width * (routes.length - 1);
-    const translateX = Animated.add(panX, offsetX).interpolate({
-      inputRange: [-maxTranslate, 0],
-      outputRange: [-maxTranslate, 0],
-      extrapolate: 'clamp',
-    });
+    const translateX = Animated.multiply(
+      Animated.add(panX, offsetX).interpolate({
+        inputRange: [-maxTranslate, 0],
+        outputRange: [-maxTranslate, 0],
+        extrapolate: 'clamp',
+      }),
+      I18nManager.isRTL ? -1 : 1
+    );
 
     return (
       <Animated.View
